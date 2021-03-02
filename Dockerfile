@@ -22,8 +22,10 @@ RUN mkdir -p /usr/share/man/man1
 # We don't need apt-utils, we won't install it. The image seems to work even with the warning.
 RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
     && dpkg -i packages-microsoft-prod.deb \
+    && eval $(cat /etc/os-release) \
+    && echo "deb http://ftp.debian.org/debian ${VERSION_CODENAME}-backports main" | tee "/etc/apt/sources.list.d/${VERSION_CODENAME}-backports.list" \
     && apt-get update -y \
-    && apt-get install --no-install-recommends -y apt-transport-https openjdk-$JRE_VERSION-jre \
+    && apt-get install -y apt-transport-https openjdk-$JRE_VERSION-jre \
     && apt-get -q -y autoremove \
     && apt-get -q -y clean \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
