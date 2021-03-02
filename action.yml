@@ -1,4 +1,4 @@
-name: "sonarscan-dotnet"
+name: "sonarscanner-dotnet"
 description: "SonarScanner for .NET with pull request decoration support."
 author: "Highbyte"
 
